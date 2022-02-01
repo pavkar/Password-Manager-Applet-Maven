@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="password-manager-applet" basedir=".">
+    <description>Builds the project.</description>
+
+    <property name="project.cap.name" value="PasswordStorageApplet.cap"/>
+
+    <property name="applet.class" value="ee.eid.javacard.TestApplet"/>
+    <property name="java.card.sdk.version" value="jc_17-06-2021"/>
+
+    <property name="folder.resources" value="src/main/resources"/>
+    <property name="folder.source" value="src/main/java"/>
+    <property name="folder.sdks" value="sdks"/>
+    <property name="folder.ext" value="ext"/>
+
+    <target name="create-folders">
+        <mkdir dir="./${folder.resources}"/>
+    </target>
+
+    <target name="create-cap" description="create cap file from java file">
+        <antcall target="create-folders"/>
+
+        <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="${folder.ext}/ant-javacard.jar"/>
+        <javacard jckit="${folder.sdks}/${java.card.sdk.version}">
+
+            <cap aid="0123456789" targetsdk="${folder.sdks}/${java.card.sdk.version}" sources="${folder.source}"
+                 output="./${folder.resources}/${project.cap.name}" javaversion="7">
+
+                <applet class="${applet.class}" aid="0123456789000006"/>
+            </cap>
+        </javacard>
+    </target>
+</project>

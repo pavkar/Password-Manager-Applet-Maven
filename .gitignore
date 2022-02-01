@@ -9,3 +9,6 @@
 /dataSources.local.xml
 /.idea/libraries/
 /.idea/sonarlint/
+/src/main/resources/
+/.idea/sonarlint/
+/.idea/libraries/
