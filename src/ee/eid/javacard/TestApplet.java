@@ -12,7 +12,7 @@ import javacardx.annotations.*;
  * @author <user>
  */
 @StringPool(value = {
-	    @StringDef(name = "Package", value = "com.test.javacard.pack"),
+	    @StringDef(name = "Package", value = "ee.eid.javacard.pack"),
 	    @StringDef(name = "AppletName", value = "TestApplet")},
 	    // Insert your strings here 
 	name = "TestAppletStrings")
