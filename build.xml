@@ -2,7 +2,7 @@
 <project name="password-manager-applet" basedir=".">
     <description>Builds the project.</description>
 
-    <property name="project.cap.name" value="PasswordStorageApplet.cap"/>
+    <property name="project.cap.name" value="PasswordManagerApplet.cap"/>
 
     <property name="applet.class" value="ee.eid.javacard.TestApplet"/>
     <property name="java.card.sdk.version" value="jc_17-06-2021"/>
