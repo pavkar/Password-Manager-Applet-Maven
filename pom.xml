@@ -13,4 +13,42 @@
         <maven.compiler.target>14</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>ext-local</id>
+            <url>file://${project.basedir}/ext/maven-repository</url>
+        </repository>
+        <repository>
+            <id>javacard-pro</id>
+            <url>https://javacard.pro/maven/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>oracle.javacard</groupId>
+            <artifactId>api_classic</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.klinec</groupId>
+            <artifactId>jcardsim</artifactId>
+            <version>3.0.5.11</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>oracle.javacard</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
 </project>

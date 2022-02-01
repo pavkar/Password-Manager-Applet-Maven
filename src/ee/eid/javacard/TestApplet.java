@@ -4,18 +4,12 @@
 package ee.eid.javacard;
 
 import javacard.framework.*;
-import javacardx.annotations.*;
 
 /**
  * Applet class
  * 
  * @author <user>
  */
-@StringPool(value = {
-	    @StringDef(name = "Package", value = "ee.eid.javacard.pack"),
-	    @StringDef(name = "AppletName", value = "TestApplet")},
-	    // Insert your strings here 
-	name = "TestAppletStrings")
 public class TestApplet extends Applet {
 	
 	 //Define the value of CLA/INS in APDU, you can also define P1, P2.
@@ -64,22 +58,21 @@ public class TestApplet extends Applet {
 		   ISOException.throwIt(ISO7816.SW_CLA_NOT_SUPPORTED);
 		}
 		//Dispatch INS in APDU.
-		switch (buffer[ISO7816.OFFSET_INS]) {
+	   switch (buffer[ISO7816.OFFSET_INS]) {
 		   //The APDU format "B0110000" or "B01101020311223300".
-			case INS_DEMO_TMP1:
-			   sendData(apdu);
-			   break;
-			   //The APDU format "B0125566" or "B012000002112200".
-			case INS_DEMO_TMP2:
+		   case INS_DEMO_TMP1 -> sendData(apdu);
+
+		   //The APDU format "B0125566" or "B012000002112200".
+		   case INS_DEMO_TMP2 -> {
 			   //Set 0x5555 into the 'buffer' array,  the offset is 0.
-			   Util.setShort(buffer, (short)0, (short)0x5555);
+			   Util.setShort(buffer, (short) 0, (short) 0x5555);
 			   //Send the first 2 bytes data in 'buffer', the hex of JCRE sending data is "55 55 90 00".
-			   apdu.setOutgoingAndSend((short)0, (short)2);
-			   break;
-			default:
-			   //If you don't know the INS, throw an exception.
-			   ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
-		}
+			   apdu.setOutgoingAndSend((short) 0, (short) 2);
+		   }
+		   default ->
+				   //If you don't know the INS, throw an exception.
+				   ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
+	   }
    }
    
    //Define a function named 'SendData'
@@ -88,7 +81,7 @@ public class TestApplet extends Applet {
 		byte [] buffer = apdu.getBuffer();
 		   
 		//Define an answer byte string
-		byte answerString[] = {'H','E','L','L','O',' ','W','O','R','L','D',' ','T','E','S','T'};
+		byte[] answerString = {'H','E','L','L','O',' ','W','O','R','L','D',' ','T','E','S','T'};
 		//Copy answerString character to APDU Buffer.
 		Util.arrayCopyNonAtomic(answerString, (short)0, buffer, (short)0, (short)answerString.length);
 		      

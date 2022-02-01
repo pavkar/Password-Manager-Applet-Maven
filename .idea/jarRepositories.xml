@@ -7,9 +7,19 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="javacard-pro" />
+      <option name="name" value="javacard-pro" />
+      <option name="url" value="https://javacard.pro/maven/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Maven Central repository" />
       <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ext-local-repo" />
+      <option name="name" value="ext-local-repo" />
+      <option name="url" value="file://D:\Programming Projects\Password_Storage_Applet/ext/maven-repository" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="jboss.community" />
