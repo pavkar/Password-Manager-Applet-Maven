@@ -5,12 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ee.eid</groupId>
-    <artifactId>Password_Storage_Applet</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>password_storage_applet</artifactId>
+    <version>0.1</version>
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
+        <armis.applet.ecosystem.version>1.0-SNAPSHOT</armis.applet.ecosystem.version>
+        <java14CompilerExecutable>${JAVA_HOME}/bin/javac</java14CompilerExecutable>
+        <compileJavaExecutable>${java14CompilerExecutable}</compileJavaExecutable>
     </properties>
 
     <repositories>
@@ -25,7 +28,6 @@
     </repositories>
 
     <dependencies>
-
         <dependency>
             <groupId>oracle.javacard</groupId>
             <artifactId>api_classic</artifactId>
@@ -49,6 +51,107 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>classpath-overrides</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>util-lib</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>oracle.javacard</groupId>
+                    <artifactId>api_classic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.globalplatform</groupId>
+            <artifactId>gpapi</artifactId>
+            <version>1.6</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <fork>true</fork>
+                        <compilerArgs>
+                            <arg>--add-modules</arg>
+                            <arg>java.smartcardio</arg>
+                        </compilerArgs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-compile</id>
+                            <configuration>
+                                <executable>${compileJavaExecutable}</executable>
+                                <source>${maven.compiler.source}</source>
+                                <target>${maven.compiler.target}</target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>ee.eid.installer.CapFileInstaller</manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
