@@ -25,20 +25,20 @@
     </fileSets>
     <files>
         <file>
-            <source>${project.basedir}/armis/applet-development-scripts/secrets/ssd.key.hex</source>
+            <source>/ext/armis/applet-development-scripts/secrets/ssd.key.hex</source>
             <outputDirectory>./resources/secrets/</outputDirectory>
         </file>
         <file>
-            <source>${project.basedir}/armis/applet-development-scripts/secrets/dm.key.pem</source>
+            <source>/ext/armis/applet-development-scripts/secrets/dm.key.pem</source>
             <outputDirectory>./resources/secrets/</outputDirectory>
         </file>
         <file>
-            <source>${project.basedir}/ext/armis-ecosystem-manager.cap</source>
+            <source>/ext/armis-ecosystem-manager.cap</source>
             <outputDirectory>./resources/</outputDirectory>
         </file>
 
         <file>
-            <source>${project.basedir}/ext/armis-ecosystem-lib.cap</source>
+            <source>/ext/armis-ecosystem-lib.cap</source>
             <outputDirectory>./resources/</outputDirectory>
         </file>
         <file>

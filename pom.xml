@@ -38,6 +38,7 @@
             <groupId>com.klinec</groupId>
             <artifactId>jcardsim</artifactId>
             <version>3.0.5.11</version>
+<!--            Defined separately-->
             <exclusions>
                 <exclusion>
                     <groupId>oracle.javacard</groupId>
@@ -60,6 +61,7 @@
             <groupId>ee.openeid.armis.applet.ecosystem</groupId>
             <artifactId>util-lib</artifactId>
             <version>${armis.applet.ecosystem.version}</version>
+<!--            Defined separately-->
             <exclusions>
                 <exclusion>
                     <groupId>oracle.javacard</groupId>
@@ -99,11 +101,13 @@
                         </execution>
                     </executions>
                 </plugin>
+<!--            Runs  command-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
+<!--            The Install Plugin is used during the install phase to add artifact(s) to the local repository.-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
@@ -115,19 +119,26 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-cap</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <ant antfile="${project.basedir}/build.xml">
+                                    <target name="create-cap"/>
+                                </ant>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
+<!--            The Assembly Plugin for Maven enables developers to combine project output into a single distributable
+archive that also contains dependencies, modules, site documentation, and other files.-->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>
@@ -145,7 +156,9 @@
                         </goals>
                         <configuration>
                             <archive>
-                                <manifest>ee.eid.installer.CapFileInstaller</manifest>
+                                <manifest>
+                                    <mainClass>ee.eid.installer.CapFileInstaller</mainClass>
+                                </manifest>
                             </archive>
                         </configuration>
                     </execution>

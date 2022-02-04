@@ -9,11 +9,17 @@
 
     <property name="folder.resources" value="src/main/resources"/>
     <property name="folder.source" value="src/main/java"/>
+    <property name="folder.target" value="target"/>
     <property name="folder.sdks" value="sdks"/>
     <property name="folder.ext" value="ext"/>
 
     <target name="create-folders">
         <mkdir dir="./${folder.resources}"/>
+        <mkdir dir="./${folder.target}"/>
+    </target>
+
+    <target name="copy-file">
+        <copy file="./${folder.resources}/${project.cap.name}" tofile="./${folder.target}/${project.cap.name}"/>
     </target>
 
     <target name="create-cap" description="create cap file from java file">
@@ -28,5 +34,7 @@
                 <applet class="${applet.class}" aid="0123456789000006"/>
             </cap>
         </javacard>
+
+        <antcall target="copy-file"/>
     </target>
 </project>
