@@ -9,6 +9,8 @@
     <version>0.1</version>
 
     <properties>
+        <project.base.cd>..</project.base.cd>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <armis.applet.ecosystem.version>1.0-SNAPSHOT</armis.applet.ecosystem.version>
@@ -28,17 +30,28 @@
     </repositories>
 
     <dependencies>
+
         <dependency>
-            <groupId>oracle.javacard</groupId>
-            <artifactId>api_classic</artifactId>
-            <version>3.0.4</version>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>classpath-overrides</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>util-lib</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>oracle.javacard</groupId>
+                    <artifactId>api_classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>com.klinec</groupId>
             <artifactId>jcardsim</artifactId>
-            <version>3.0.5.11</version>
-<!--            Defined separately-->
+            <version>3.0.5.9</version>
             <exclusions>
                 <exclusion>
                     <groupId>oracle.javacard</groupId>
@@ -53,27 +66,83 @@
         </dependency>
 
         <dependency>
-            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
-            <artifactId>classpath-overrides</artifactId>
-            <version>${armis.applet.ecosystem.version}</version>
+            <groupId>oracle.javacard</groupId>
+            <artifactId>api_classic</artifactId>
+            <version>3.0.4</version>
         </dependency>
-        <dependency>
-            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
-            <artifactId>util-lib</artifactId>
-            <version>${armis.applet.ecosystem.version}</version>
-<!--            Defined separately-->
-            <exclusions>
-                <exclusion>
-                    <groupId>oracle.javacard</groupId>
-                    <artifactId>api_classic</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.globalplatform</groupId>
             <artifactId>gpapi</artifactId>
             <version>1.6</version>
         </dependency>
+
+        <dependency>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>manager</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ee.openeid.armis.applet.ecosystem</groupId>
+            <artifactId>manager</artifactId>
+            <version>${armis.applet.ecosystem.version}</version>
+            <type>test-jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>ee.ria.armis</groupId>
+            <artifactId>applet-management-application</artifactId>
+            <version>0.10.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ee.ria.armis</groupId>
+            <artifactId>cras-procedure-armis</artifactId>
+            <version>0.10.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ee.ria.idemia.securechannel</groupId>
+            <artifactId>idemia-securechannel</artifactId>
+            <version>1.1.163</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ee.openeid.cras</groupId>
+            <artifactId>cras-common</artifactId>
+            <version>0.2.54</version>
+            <type>test-jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.martinpaljak</groupId>
+            <artifactId>apdu4j-pcsc</artifactId>
+            <version>21.05.06</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
+        <dependency>
+            <groupId>systems.manifold</groupId>
+            <artifactId>manifold-ext</artifactId>
+            <version>2022.1.21</version>
+        </dependency>
+        <dependency>
+            <groupId>systems.manifold</groupId>
+            <artifactId>manifold-ext-rt</artifactId>
+            <version>2022.1.21</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -101,13 +170,13 @@
                         </execution>
                     </executions>
                 </plugin>
-<!--            Runs  command-->
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-<!--            The Install Plugin is used during the install phase to add artifact(s) to the local repository.-->
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
@@ -137,8 +206,7 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            The Assembly Plugin for Maven enables developers to combine project output into a single distributable
-archive that also contains dependencies, modules, site documentation, and other files.-->
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>

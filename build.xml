@@ -4,11 +4,11 @@
 
     <property name="project.cap.name" value="PasswordManagerApplet.cap"/>
 
-    <property name="applet.class" value="ee.eid.javacard.TestApplet"/>
+    <property name="applet.class" value="ee.eid.applet.PasswordManagerApplet2"/>
     <property name="java.card.sdk.version" value="jc_17-06-2021"/>
 
     <property name="folder.resources" value="src/main/resources"/>
-    <property name="folder.source" value="src/main/java"/>
+    <property name="folder.source" value="src/main/java/ee/eid/applet"/>
     <property name="folder.target" value="target"/>
     <property name="folder.sdks" value="sdks"/>
     <property name="folder.ext" value="ext"/>
@@ -32,9 +32,13 @@
                  output="./${folder.resources}/${project.cap.name}" javaversion="7">
 
                 <applet class="${applet.class}" aid="0123456789000006"/>
+
+                <import exps="${folder.ext}/org.globalplatform_1.6/exp" jar="${folder.ext}/org.globalplatform_1.6/gpapi-globalplatform.jar"/>
+                <import jar="${folder.ext}/armis-ecosystem-libs.jar"/>
             </cap>
         </javacard>
 
         <antcall target="copy-file"/>
     </target>
+
 </project>
